@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+
+{% extends 'base.html' %}
+{% load static tz mathfilters %}
+
+{% block title %} Justice4Jamar: CopWatch {% endblock %}
+
+{% block content %}
+
+<div style="padding-top:5px;padding-bottom:5px;" align="center">
+<div class="hidden-for-large-up">
+
+</div>
+	{% if complaint %}
+	<div class="row-fluid text-left" style="padding-bottom:20px;"><h2>Community Comments</h2></div>
+	<table width="90%">
+		<tr class="spaceBelow"><th>Date</th><th>Comment</th><th class="text-right">Officer</th></tr>
+		{% for c in complaint %}
+		<tr class=""> 
+			 <td class="bgdeet">
+				<h5>{{ c.date|date:"m.d.y" }}</h5>
+			</td>
+			<td class="bgdeet">
+				<h4>{{ c.subject }}</h4>
+		 	</td>
+			 <td class="text-right">
+				{% if c.officer.all %}
+					{% for o in c.officer.all %}
+						<a href="{{ o.get_absolute_url }}">
+						 {{ o.full_name }}</a>
+						<br />
+						<b>Badge #:</b> {{ o.badge }}
+					{% endfor %}
+                 {% endif %}
+			</td>
+		</tr>
+		<tr class="spaceBelow">
+			<td colspan="3">
+				{{ c.description }}
+			</td>
+		</tr>
+		{% endfor %}
+	</table>
+	{% endif %}
+{% endblock content %}

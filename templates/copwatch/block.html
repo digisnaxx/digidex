@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+
+{% load static tz mathfilters custom_markdown %}
+
+	{% if complaint %}
+	<div class="row-fluid text-center" style="background-color: #ff471a;"><h3>Community Complaints</h3></div>
+	<div align="center">
+	<table width="90%">
+		<tr><th>Complaint</th><th class="text-right">Officer</th></tr>
+		{% for c in complaint|slice:":4" %}
+		<tr>
+			 <td>
+				<h5>{{ c.subject }}</h5>
+			 </td>
+			 <td class="text-right">
+				{% if c.officer.all %}
+					{% for o in c.officer.all %}
+						{{ o.name }}
+					{% endfor %}
+                 {% endif %}
+			</td>
+		</tr>
+		<tr>
+			<td colspan="2">
+				<b>{{ c.date|date:"m.d.y" }}:</b> {{ c.description }}
+			</td>
+		</tr>
+		{% endfor %}
+	</table>
+	</div>
+	{% endif %}
