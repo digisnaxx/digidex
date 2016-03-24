@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+
+{% load static custom_markdown tz%}
+
+{% block title %}{{ post.title }}{% endblock %}
+
+{% block content %}
+<nav class="pull-left">{% include "blog/util/menu-toggle.html" %}</nav>
+<div class="container-fluid row-fluid">
+<div class="text-center">
+    <h1> {{ post.title }} </h1>
+</div>
+    {% if post.image %}
+    <div align="center">
+        <a href="media/posts/{{ post.image }}" data-lightbox="article">
+            <img class="img-responsive" src="media/posts/{{ post.image }}">
+        </a>
+    </div>
+    {% endif %}
+
+    <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 col-sm-12 col-xs-12"
+         style="padding-bottom:175px;padding-left:25px;padding-top:25px;">
+        <header></header>
+
+        <p>{{ post.content|custom_markdown|linebreaks }}</p>
+
+        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 text-right" style="padding-top: 15px;>
+             <font size=" 2">
+            <div class="text-right">
+                {% if post.tags.all %} t {% for tag in post.tags.all %}
+                <a href="{{ tag.get_absolute_url }}">{{ tag.name }}</a>
+                {% endfor %}
+                {% endif %}
+            </div>
+
+        {% if object.category %}
+            <div class="text-right">
+                c <a href="{{ object.category.get_absolute_url }}">{{ object.category.name }}</a>
+            </div>
+        {% endif %}
+            </font>
+        </div>
+    </div>
+
+
+{% endblock content %}

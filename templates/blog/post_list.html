@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+
+{% extends "base.html" %}
+
+{% load static custom_markdown tz%}
+
+{% block content %}
+<nav class="pull-left">{% include "blog/util/menu-toggle.html" %}</nav>
+<div class="container-fluid row">
+    <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+
+
+        {% if object_list %}
+        {% for post in object_list %}
+
+        <div class="post" style="padding-top:15px;padding-bottom:75px;padding-left:35px;">
+            <h2>
+                <a href="{{ post.get_absolute_url }}">
+                    {{ post.title }}
+                </a>
+            </h2>
+            {% if post.image %}
+            <div align="center">
+                <a href="media/posts/{{ post.image }}" data-lightbox="frontpage" data-title="{{ post.title }}">
+                    <img class="img-responsive" src="media/posts/{{ post.image }}">
+                </a>
+            </div>
+            {% endif %}
+
+            <p>{{ post.content|custom_markdown|linebreaks }}</p>
+
+
+            <div>
+                <font size="2">
+                    <div class="col-md-12">
+                        {% if post.tags.all %} t {% for tag in post.tags.all %}
+                        <a href="{{ tag.get_absolute_url }}">{{ tag.name }}</a>
+                        {% endfor %}
+                        {% else %}
+                        {% endif %}
+                    </div>
+                    <div class="col-md-12">
+                        {% if post.category %}
+                        c <a href="{{ post.category.get_absolute_url }}">{{ post.category.name }}</a>
+                        {% else %}
+                        {% endif %}
+
+                    </div>
+
+                </font>
+            </div>
+        </div>
+
+
+        <div>
+            <center>_______________________</center>
+        </div>
+
+        {% endfor %}
+
+        {% else %}
+        <p>There are no posts - poop.</p>
+        {% endif %}
+
+        <div class="col-xs-offset-0 col-xs-3">
+            {% if page.has_previous %}
+            <center>
+                <a href="/{{ page.previous_page_number }}/" style="text-decoration:none"><h1>-</h1></a>
+            </center>
+            {% endif %}
+        </div>
+        <div class="col-xs-offset-6 col-xs-3">
+            {% if page.has_next %}
+            <center>
+                <a href="/{{ page.next_page_number }}/" style="text-decoration:none"><h2>+</h2></a>
+            </center>
+            {% endif %}
+
+        </div>
+    </div>
+
+    <div>
+
+        {% include "blog/util/twitter.html" %}
+
+    </div>
+</div>
+{% endblock content %}

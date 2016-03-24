@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+
+
+<div class="visible-xs visible-sm col-sm-12 col-xs-12">
+     <h4>Vehicle Specs:</h4>
+    {%  for v in object.get_car %}
+      <table class="table table-bordered table-hover">
+        <tr>
+          <td>
+            MAKE:
+          </td>
+          <td>
+            {{ v.car_make }}
+          </td>
+        </tr>
+
+        <tr>
+          <td>
+            MODEL:
+          </td>
+          <td>
+            {{ v.car_model }}
+          </td>
+        </tr>
+
+        <tr>
+          <td>
+            YEAR:
+          </td>
+          <td>
+            {{ v.car_year }}
+          </td>
+        </tr>
+
+        <tr>
+          <td>
+            Vehicle Number:
+          </td>
+          <td>
+            {{ v.car_num }}
+          </td>
+        </tr>
+        <tr>
+          <td colspan="2" align="center">
+
+            {% if v.car_image %}
+            <a href="/media/cops/cars/{{ v.get_car_image }}" data-lightbox="article">
+                <img class="img-responsive" src="/media/cops/cars/{{ v.get_car_image }}">
+            </a>
+                {% else %}
+            <a href="/media/cops/cars/poohblood.gif" data-lightbox="article">
+                <img class="img-responsive" src="/media/cops/cars/eoryore.gif  ">
+            </a>
+                {% endif %}
+
+          </td>
+        </tr>
+      </table>
+    {% endfor %}
+</div>

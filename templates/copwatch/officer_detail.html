@@ -1,0 +1,153 @@
+{% extends "base.html" %}
+
+{% load static tz custom_tags disqus_tags %}
+
+{% block title %} Profile: {{ object.name }}{% endblock %}
+
+{% block content %}
+
+    <div class="container-fluid row-fluid">
+        <div align="center" class="col-lg-4 col-lg-offset-1 col-md-6 col-md-offset-0 col-sm-12 col-xs-12">
+            <div style="padding-bottom: 10px;">
+                {% if object.image %}
+                    <a href="/media/cops/faces/{{ object.get_image }}" data-lightbox="article">
+                        <img class="img-responsive" src="/media/cops/faces/{{ object.get_image }}">
+                    </a>
+                {% else %}
+                    <a href="/media/cops/faces/police.png" data-lightbox="article">
+                        <img class="img-responsive" src="/media/cops/faces/police.png">
+                    </a>
+                {% endif %}
+            </div>
+            <div>
+                <table class="table table-bordered table-hover">
+                    <tr>
+                        <td>
+                            Height:
+                        </td>
+                        <td>
+                            {{ object.get_height }}
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>
+                            Weight
+                        </td>
+                        <td>
+                            {{ object.weight }} lbs
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>
+                            Eye Color:
+                        </td>
+                        <td>
+                            {{ object.eye_col }}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Marital Status:
+                        </td>
+                        <td>
+                            {{ object.status }}
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>
+                            Alma Mater
+                        </td>
+                        <td>
+                            {{ object.alma_mater }}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            City of Residence:
+                        </td>
+                        <td>
+                            {{ object.city_of_residence }}
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        {% include "copwatch/vehicle_block_large.html" %}
+        </div>
+
+
+        <div class="col-lg-6 col-lg-offset-0 col-md-6 col-md-offset-0 col-sm-12 col-xs-12">
+            <div style="padding-bottom:4em;">
+                <h1><span class="pull-left">{{ object.rank }} {{ object.name }}</span>
+                    <span class="pull-right"> {{ object.precinct }} </span></h1>
+            </div>
+
+            <table class="table table-bordered table-hover">
+                <tr>
+                    <td>
+                        Badge #
+                    </td>
+                    <td>
+                        {{ object.badge }}
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>
+                        Phone #:
+                    </td>
+                    <td>
+                        <a href="tel:{{ object.phone }}">{{ object.get_phone_num }}</a>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>
+                        Email Address:
+                    </td>
+                    <td>
+                        <a href="mailto:{{ object.email }}">{{ object.email }}</a>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>
+                        Salary:
+                    </td>
+                    <td>
+                        {{ object.salary | prepend_dollars }}
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>
+                        Years with MPD / Years in LE
+                    </td>
+                    <td>
+                        {{ object.years_emp_mps }} / {{ object.years_emp_law }}
+                    </td>
+                </tr>
+
+            </table>
+
+            <p>
+            <h3>Notes:</h3> {{ object.notes|linebreaks }} </p>
+
+        </div>
+
+    {% include "copwatch/vehicle_block_small.html" %}
+
+</div>
+
+        <div class="col-lg-8 col-lg-offset-2 col-md-8 col-md-offset-2 col-sm-12 col-xs-12"
+             style="padding-top: 15px;">
+
+        {% disqus_show_comments %}
+
+        </div>
+
+
+
+{% endblock content %}
