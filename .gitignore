@@ -1,0 +1,4 @@
+mpdcom/settings.py
+mpdcom/*.pyc
+blog
+copwatch/*.pyc
